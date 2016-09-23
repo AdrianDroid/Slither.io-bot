@@ -9,7 +9,7 @@ file, You can obtain one at http://mozilla.org/MPL/2.0/.
 // @namespace    http://slither.io/
 // @version      1.2.31
 // @description  Slither.io bot
-// @author       Ermiya Eskandary & Théophile Cailliau
+// @author       Adrian, Ermiya Eskandary & Théophile Cailliau
 // @match        http://slither.io/
 // @grant        none
 // ==/UserScript==
@@ -21,7 +21,7 @@ Changes you make here will be kept between script versions
 */
 var customBotOptions = {
     // target fps
-     targetFps: 120,
+     targetFps: 75,
     // size of arc for collisionAngles
     // arcSize: Math.PI / 8,
     // radius multiple for circle intersects
@@ -1319,7 +1319,7 @@ var userInterface = window.userInterface = (function() {
         },
 
         oefTimer: function() {
-            var start = perfromance.now();
+            var start = performance.now();
             // Original slither.io oef function + whatever is under it
             original_oef();
             // Modified slither.io redraw function
