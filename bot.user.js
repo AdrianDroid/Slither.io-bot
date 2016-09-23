@@ -21,7 +21,7 @@ Changes you make here will be kept between script versions
 */
 var customBotOptions = {
     // target fps
-    // targetFps: 30,
+     targetFps: 120,
     // size of arc for collisionAngles
     // arcSize: Math.PI / 8,
     // radius multiple for circle intersects
@@ -1084,7 +1084,7 @@ var userInterface = window.userInterface = (function() {
             fps: 0,
             fpsTimer: function() {
                 if (window.playing && window.fps && window.lrd_mtm) {
-                    if (Date.now() - window.lrd_mtm > 970) {
+                    if (performance.now() - window.lrd_mtm > 970) {
                         userInterface.framesPerSecond.fps = window.fps;
                     }
                 }
@@ -1319,7 +1319,7 @@ var userInterface = window.userInterface = (function() {
         },
 
         oefTimer: function() {
-            var start = Date.now();
+            var start = perfromance.now();
             // Original slither.io oef function + whatever is under it
             original_oef();
             // Modified slither.io redraw function
@@ -1349,7 +1349,7 @@ var userInterface = window.userInterface = (function() {
             }
 
             userInterface.onFrameUpdate();
-            setTimeout(userInterface.oefTimer, (1000 / bot.opt.targetFps) - (Date.now() - start));
+            setTimeout(userInterface.oefTimer, (1000 / bot.opt.targetFps) - (perfromance.now() - start));
         },
 
         // Quit to menu
