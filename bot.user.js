@@ -365,7 +365,7 @@ var bot = window.bot = (function() {
             // These are the bot's default options
             // If you wish to customise these, use
             // customBotOptions above
-            targetFps: 30,
+            targetFps: 60,
             arcSize: Math.PI / 8,
             radiusMult: 10,
             foodAccelSize: 60,
@@ -730,9 +730,13 @@ var bot = window.bot = (function() {
         // Round angle difference up to nearest foodRoundAngle degrees.
         // Round food up to nearest foodRoundsz, square for distance^2
         scoreFood: function(f) {
-            f.score = Math.pow(Math.ceil(f.sz / bot.opt.foodRoundSize) * bot.opt.foodRoundSize, 2) /
-                f.distance / (Math.ceil(f.da / bot.opt.foodRoundAngle) * bot.opt.foodRoundAngle);
+            f.score = Math.pow(
+              Math.ceil(f.sz / bot.opt.foodRoundSize) * bot.opt.foodRoundSize, 2) /
+                f.distance / (Math.ceil(f.da / bot.opt.foodRoundAngle) * bot.opt.foodRoundAngle * Math.log(f.tail_distance)
+              );
         },
+
+
 
         computeFoodGoal: function() {
             var foodClusters = [];
@@ -744,9 +748,10 @@ var bot = window.bot = (function() {
                 var a;
                 var da;
                 var distance;
+                var tail_distance;
                 var sang = window.snake.ehang;
                 var f = window.foods[i];
-
+                var tail = window.snake.pts[window.snake.pts.length-1];
                 if (!f.eaten &&
                     !(
                         canvasUtil.circleIntersect(
@@ -767,6 +772,8 @@ var bot = window.bot = (function() {
                             (2 * Math.PI) - Math.abs(a - sang), Math.abs(a - sang));
                         distance = Math.round(
                             canvasUtil.getDistance2(cx, cy, window.snake.xx, window.snake.yy));
+                        tail_distance = Math.round(
+                            canvasUtil.getDistance2(cx, cy, tail.xx, tail.yy));
                         foodClusters[fi] = {
                             x: cx,
                             y: cy,
@@ -774,6 +781,7 @@ var bot = window.bot = (function() {
                             da: da,
                             sz: csz,
                             distance: distance,
+                            tail_distance: tail_distance,
                             score: 0.0
                         };
                         fi++;
