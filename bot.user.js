@@ -730,13 +730,10 @@ var bot = window.bot = (function() {
         // Round angle difference up to nearest foodRoundAngle degrees.
         // Round food up to nearest foodRoundsz, square for distance^2
         scoreFood: function(f) {
-            f.score = Math.pow(
-              Math.ceil(f.sz / bot.opt.foodRoundSize) * bot.opt.foodRoundSize, 2) /
-                f.distance / (Math.ceil(f.da / bot.opt.foodRoundAngle) * bot.opt.foodRoundAngle * Math.log(f.tail_distance)
-              );
+            f.score = Math.pow(Math.ceil(f.sz / bot.opt.foodRoundSize) * bot.opt.foodRoundSize, 2.5) /
+                f.distance / (Math.ceil(f.da / bot.opt.foodRoundAngle) * bot.opt.foodRoundAngle) *
+                Math.atan(f.tail_distance);
         },
-
-
 
         computeFoodGoal: function() {
             var foodClusters = [];
