@@ -1084,7 +1084,7 @@ var userInterface = window.userInterface = (function() {
             fps: 0,
             fpsTimer: function() {
                 if (window.playing && window.fps && window.lrd_mtm) {
-                    if (performance.now() - window.lrd_mtm > 970) {
+                    if (Date.now() - window.lrd_mtm > 970) {
                         userInterface.framesPerSecond.fps = window.fps;
                     }
                 }
