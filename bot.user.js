@@ -7,7 +7,7 @@ file, You can obtain one at http://mozilla.org/MPL/2.0/.
 // ==UserScript==
 // @name         Slither.io-bot
 // @namespace    http://slither.io/
-// @version      1.2.35
+// @version      1.2.36
 // @description  Slither.io bot
 // @author       Adrian, Ermiya Eskandary & Théophile Cailliau
 // @match        http://slither.io/
@@ -356,7 +356,7 @@ var bot = window.bot = (function() {
         collisionPoints: [],
         collisionAngles: [],
         scores: [],
-        foodTimeout: undefined,
+        foodTimeout: 0,
         sectorBoxSide: 0,
         defaultAccel: 0,
         sectorBox: {},
