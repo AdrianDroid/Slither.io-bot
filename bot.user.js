@@ -876,17 +876,24 @@ var bot = window.bot = (function() {
 
             if (bot.checkCollision()) {
                 bot.lookForFood = false;
+                /*
                 if (bot.foodTimeout) {
                     window.clearTimeout(bot.foodTimeout);
                     bot.foodTimeout = window.setTimeout(
                         bot.foodTimer, 1000 / bot.opt.targetFps * bot.opt.foodFrames);
                 }
+                */
             } else {
                 bot.lookForFood = true;
+                bot.foodTimeout++;
+                if (bot.foodTimeout % bot.opt.foodFrame === 0){
+                  bot.foodTimer();
+                }
+                /*
                 if (bot.foodTimeout === undefined) {
                     bot.foodTimeout = window.setTimeout(
                         bot.foodTimer, 1000 / bot.opt.targetFps * bot.opt.foodFrames);
-                }
+                }*/
                 window.setAcceleration(bot.foodAccel());
             }
         },
@@ -899,7 +906,7 @@ var bot = window.bot = (function() {
                 window.goalCoordinates = bot.currentFood;
                 canvasUtil.setMouseCoordinates(canvasUtil.mapToMouse(window.goalCoordinates));
             }
-            bot.foodTimeout = undefined;
+            //bot.foodTimeout = undefined;
         }
     };
 })();
@@ -1349,7 +1356,8 @@ var userInterface = window.userInterface = (function() {
             }
 
             userInterface.onFrameUpdate();
-            setTimeout(userInterface.oefTimer, (1000 / bot.opt.targetFps) - (performance.now() - start));
+            //setTimeout(userInterface.oefTimer, (1000 / bot.opt.targetFps) - (performance.now() - start));
+            requestAnimationFrame(userInterface.oefTimer);
         },
 
         // Quit to menu
@@ -1460,7 +1468,7 @@ var userInterface = window.userInterface = (function() {
     window.social.remove();
 
     // Maintain fps
-    setInterval(userInterface.framesPerSecond.fpsTimer, 80);
+    //setInterval(userInterface.framesPerSecond.fpsTimer, 80);
 
     // Start!
     userInterface.oefTimer();
